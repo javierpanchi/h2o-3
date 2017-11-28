@@ -30,6 +30,12 @@ def call(buildConfig) {
     [
       stageName: 'Java8 Smoke', target: 'test-junit-smoke',
       timeoutValue: 20, lang: buildConfig.LANG_JAVA
+    ],
+    [
+      stageName: 'GBM Benchmark', executionScript: 'h2o-3/scripts/jenkins/groovy/benchmarkStage.groovy',
+      timeoutValue: 120, target: 'benchmark', lang: buildConfig.LANG_NONE,
+      additionalTestPackages: [buildConfig.LANG_R], image: buildConfig.BENCHMARK_IMAGE,
+      nodeLabel: buildConfig.getBenchmarkNodeLabel(), model: 'gbm', makefilePath: BENCHMARK_MAKEFILE_PATH
     ]
   ]
 
